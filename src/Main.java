@@ -3,6 +3,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
 
+	//Simple example of how to use BlockGenerator module
+	
 	public static void main(String[] args) {
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");

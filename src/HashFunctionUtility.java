@@ -20,5 +20,4 @@ public class HashFunctionUtility {
 				throw new RuntimeException(e);
 			}
 	} 
-
 }

@@ -5,5 +5,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson_lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fortuna"/>
+	<classpathentry kind="lib" path="C:/Users/virus/Downloads/Compressed/gson-2.2.2.jar/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

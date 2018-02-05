@@ -6,22 +6,20 @@ public class Block {
 	long blockHeight;
 	private String data;
 	private long timeStamp;
+	
+	
 
 	//Block Constructor.
 	public Block(String data,String previousHash) {
 		this.data = data;
 		this.previousHash = previousHash;
 		this.timeStamp = new Date().getTime();
-		this.blockHeight = Main.getBlockHeight() + 1;
+		this.blockHeight = Main.getBlockHeight() + 1;		
 	}
 	
 	//Return the hash of the current block
 	public String calculateHash() {
-		String calculatedhash = HashFunctionUtility.applySha256( 
-				previousHash +
-				Long.toString(timeStamp) +
-				data 
-				);
+		String calculatedhash = HashFunctionUtility.applySha256(previousHash + Long.toString(timeStamp) + data);
 		return calculatedhash;
 	}
 	

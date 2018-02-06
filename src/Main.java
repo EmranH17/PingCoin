@@ -5,6 +5,7 @@ public class Main {
 	
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 	
+	
 	public static void main(String[] args) {
 		
 		//add our blocks to the block chain ArrayList:
@@ -22,6 +23,8 @@ public class Main {
 		//Print the whole BlockChain again
 		blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
 		System.out.println("\n\n" + blockchainJson);
+		
+	
 	}
 	
 	public static long getBlockHeight() {

@@ -14,10 +14,9 @@ public class Blockchain {
 	public Blockchain(){
     }
 	
-	/** This method attempts to add a block to the blockchain.
+	/** This method attempts to add a block to the File.
 	 * 
-	 * @param block Block to add to the blockchain
-	 * @return boolean Whether adding the block was unsuccessful. Most common source of returning false is a block that doesn't verify.
+	 * @param block Block to add to the File
 	 */
 	public boolean addBlock(Block block) {
 		return writeBlockToFile(block);

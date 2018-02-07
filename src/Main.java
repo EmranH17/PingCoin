@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.GsonBuilder;
 
 public class Main {
@@ -28,5 +30,17 @@ public class Main {
 		//for (Block block : blockchain)
 		for (Block block : blockchain)
 			database.addBlock(block);
+		
+		//testing markleTree
+		 List<String> tempTxList = new ArrayList<String>();
+		    tempTxList.add("TXIN:x,Value:50,TXOUT:y");
+		    tempTxList.add("TXIN:y,Value:20,TXOUT:g");
+		    tempTxList.add("TXIN:a,Value:10,TXOUT:b");
+		    tempTxList.add("TXIN:t,Value:15,TXOUT:v");
+		    tempTxList.add("TXIN:L,Value:67,TXOUT:o");
+		    
+		    markleTree merkleTrees = new markleTree(tempTxList);
+		    merkleTrees.merkle_tree();
+		    System.out.println("root : " + merkleTrees.getRoot());
 	}
 }

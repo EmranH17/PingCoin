@@ -2,6 +2,12 @@
 
 #Date 07/02/2017
 
+Changes: Added class markleTree to calculate markle root.
+
+Implementation: Not implemented yet because need transactions first.
+
+#Date 07/02/2017
+
 Changes: Added class Blockchain and Database to store the blockchain.
 
 Implementation: Stored the blockchain(Genesis block and 1st created block from the Genesis) into a file blockchain.dta.

@@ -26,10 +26,11 @@ public class Main {
 		blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
 		System.out.println("\n\n" + blockchainJson);
 		
-		//Testing: Save the entire blockchain to File blockchain.dta
-		//for (Block block : blockchain)
+		//Testing: Save the entire blockchain to database file named blockchainDb.db on PingCoin root folder
+		//Recommended to use http://sqlitebrowser.org/ to open the .db file
 		for (Block block : blockchain)
 			database.addBlock(block);
+		database.readBlock();
 		
 		//testing markleTree
 		 List<String> tempTxList = new ArrayList<String>();

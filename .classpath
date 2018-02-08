@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson_lib"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fortuna"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqlite_jdbc"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

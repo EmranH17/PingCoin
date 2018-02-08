@@ -4,7 +4,7 @@ public class Block {
 	
 	public String blockHash;
 	public long timeStamp;
-	public long blockHeight;
+	public int blockHeight;
 	public String previousHash;
 	public String data;
 
@@ -26,7 +26,7 @@ public class Block {
 	public String getRawBlock()
     {
         String rawBlock = ""; 
-        rawBlock = "{" + timeStamp + ":" + blockHeight + ":" + previousHash + ":" + data + "}";
+        rawBlock = timeStamp + "," + blockHeight + "," + previousHash + "," + data;
         return rawBlock; 
     }
 }

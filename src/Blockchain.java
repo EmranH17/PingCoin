@@ -1,11 +1,14 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
- * Simple Block class template.
- * addBlock
- * writeBlockToFile
+ * Simple Blockchain class template.
+ * writeBlockToDatabaseFile
+ * readBlocksFromDatabaseFile
  * More TODO methods...
  */
 public class Blockchain {
@@ -14,36 +17,62 @@ public class Blockchain {
 	public Blockchain(){
     }
 	
-	/** This method attempts to add a block to the File.
-	 * 
-	 * @param block Block to add to the File
-	 */
-	public boolean addBlock(Block block) {
-		return writeBlockToFile(block);
-		/*TODO:
-		 *  Verification
-		 *  Read from File
-		 */
+	/**
+     * Writes a block to the blockchain database file
+     */
+	public void writeBlockToDatabaseFile(Block block) {
+		// SQLite connection string
+        String url = "jdbc:sqlite:blockchainDb.db";
+        Connection conn = null;
+        
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        String sql = "INSERT INTO Block(blockHeight,timeStamp,previousHash,data,blockHash) VALUES(?,?,?,?,?)";
+        
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        	pstmt.setInt(1, block.blockHeight);
+            pstmt.setLong(2, block.timeStamp);
+            pstmt.setString(3, block.previousHash);
+            pstmt.setString(4, block.data);
+            pstmt.setString(5, block.blockHash);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 	}
 	
 	/**
-     * Writes a block to the blockchain file
-     * 
-     * @return boolean Whether write was successful
+     * Read blocks from the blockchain database file
      */
-	private boolean writeBlockToFile(Block block) {
-		System.out.println("Writing a block to file...");
-        try (FileWriter fileWriter = new FileWriter("blockchain.dta", true);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        PrintWriter out = new PrintWriter(bufferedWriter))
-        {
-            out.println(block.getRawBlock());
-        } catch (Exception e)
-        {
-            System.out.println("ERROR: UNABLE TO SAVE BLOCK TO DATABASE!");
-            e.printStackTrace();
-            return false;
+	public void readBlocksFromDatabaseFile(){
+		// SQLite connection string
+        String url = "jdbc:sqlite:blockchainDb.db";
+        String sql = "SELECT blockHeight,timeStamp,previousHash,data,blockHash FROM block";
+        Connection conn = null;
+        
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-        return true;
-	}
+        
+        try (Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getInt("blockHeight") +  "\t" + 
+                                   rs.getLong("timeStamp") + "\t" +
+                                   rs.getString("previousHash") + "\t" +
+                                   rs.getString("data") + "\t" +
+                                   rs.getString("blockHash"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

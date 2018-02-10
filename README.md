@@ -1,5 +1,16 @@
 # PingCoin
 
+## Date 10/02/2018
+
+### Changes:
+1. Transaction class is added.
+2. TransactionIn class is added.
+3. TransactionOut class is added.
+
+### Implementation:
+1. TestTransaction class has testing code
+2. PublicPrivateKey is created, transaction is made, transaction is verified using *whose* private key.
+
 ## Date 08/02/2018
 
 ### Changes: 

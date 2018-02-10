@@ -29,4 +29,9 @@ public class Block {
         rawBlock = timeStamp + "," + blockHeight + "," + previousHash + "," + data;
         return rawBlock; 
     }
+	
+	public String calculateHash() {
+		String calculatedhash = HashFunctionUtility.applySha256(Long.toString(timeStamp) + Integer.toString(blockHeight) + previousHash + data);
+		return calculatedhash;
+	}
 }

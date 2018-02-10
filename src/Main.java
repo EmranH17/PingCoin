@@ -8,10 +8,15 @@ public class Main {
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 	public static Database database = new Database();
 	
+	public static int difficulty = 5;
+	public static PublicPrivateKeyPair walletA;
+	public static PublicPrivateKeyPair walletB;
+	public static TestTransaction testTransaction;
+	
 	public static void main(String[] args) {
 		
 		//add our blocks to the block chain ArrayList:
-		blockchain.add( new Block("Genesis", "0") );	
+		blockchain.add( new Block("Genesis", "0") );
 				
 		//Print the whole BlockChain
 		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
@@ -28,6 +33,7 @@ public class Main {
 		
 		//Testing: Save the entire blockchain to database file named blockchainDb.db on PingCoin root folder
 		//Recommended to use http://sqlitebrowser.org/ to open the .db file
+		System.out.println("\n\nReading stored blockchain:");
 		for (Block block : blockchain)
 			database.addBlock(block);
 		database.readBlock();
@@ -42,6 +48,34 @@ public class Main {
 		    
 		    markleTree merkleTrees = new markleTree(tempTxList);
 		    merkleTrees.merkle_tree();
-		    System.out.println("root : " + merkleTrees.getRoot());
+		    System.out.println("\n\nPrinting the merkle root of y, g, b, v, o:\nroot : " + merkleTrees.getRoot());
+		    
+		  //Transaction Test
+		    System.out.println("\n\nTesting transaction:");
+		    testTransaction = new TestTransaction();
+		    TestTransaction.testTransaction();
 	}
+	
+	public static Boolean isChainValid() {
+    	Block currentBlock; 
+    	Block previousBlock;
+    	
+    	//loop through block chain to check hashes
+    	
+    	for(int i=1; i < blockchain.size(); i++) {
+    		currentBlock = blockchain.get(i);
+    		previousBlock = blockchain.get(i-1);
+    		//compare registered hash and calculated hash:
+    		if(!currentBlock.blockHash.equals(currentBlock.calculateHash()) ){
+    			System.out.println("Current Hashes not equal");			
+    			return false;
+    		}
+    		//compare previous hash and registered previous hash
+    		if(!previousBlock.blockHash.equals(currentBlock.previousHash) ) {
+    			System.out.println("Previous Hashes not equal");
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }

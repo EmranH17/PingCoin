@@ -1,5 +1,18 @@
 # PingCoin
 
+## Date 12/02/2018
+
+### Changes:
+1. TestingClass class is added.
+2. Blockchain class will manage chain of blocks
+3. blockMasterElection class make use of Blockchain class instead of ArrayList<Block>.
+4. Block class make use of Blockchain class to get height of the block
+5. Cleaned Main class for console application development
+
+### Implementation:
+1. TestTransaction class has testing code
+2. PublicPrivateKey is created, transaction is made, transaction is verified using *whose* private key.
+
 ## Date 10/02/2018
 
 ### Changes:

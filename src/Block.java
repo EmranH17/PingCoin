@@ -11,7 +11,7 @@ public class Block {
 	//Block Constructor.
 	public Block(String data,String previousHash) {
 		this.timeStamp = new Date().getTime();
-		this.blockHeight = Main.blockchain.size();
+		this.blockHeight = Blockchain.blockchain.size();
 		this.previousHash = previousHash;
 		this.data = data;
 		this.blockHash = HashFunctionUtility.applySha256(Long.toString(timeStamp) + blockHeight + this.previousHash + this.data);

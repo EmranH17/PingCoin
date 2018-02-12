@@ -10,8 +10,7 @@
 5. Cleaned Main class for console application development
 
 ### Implementation:
-1. TestTransaction class has testing code
-2. PublicPrivateKey is created, transaction is made, transaction is verified using *whose* private key.
+1. Changes in usage of Blockchain class
 
 ## Date 10/02/2018
 

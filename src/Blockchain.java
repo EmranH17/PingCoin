@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * Simple Blockchain class template.
@@ -12,6 +13,7 @@ import java.sql.Statement;
  * More TODO methods...
  */
 public class Blockchain {
+	static ArrayList<Block> blockchain = new ArrayList<Block>();
 
 	//Empty Constructor
 	public Blockchain(){
@@ -75,4 +77,16 @@ public class Blockchain {
             System.out.println(e.getMessage());
         }
     }
+
+	public int size() {
+		return blockchain.size();
+	}
+
+	public void add(Block block) {
+		blockchain.add(block);
+	}
+
+	public Block get(int index) {
+		return blockchain.get(index);
+	}
 }

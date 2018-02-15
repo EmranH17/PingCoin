@@ -31,7 +31,7 @@ public class Block {
     }
 	
 	public String calculateHash() {
-		String calculatedhash = HashFunctionUtility.applySha256(Long.toString(timeStamp) + Integer.toString(blockHeight) + previousHash + data);
+		String calculatedhash = HashFunctionUtility.applySha256(Long.toString(timeStamp) + blockHeight + previousHash + data);
 		return calculatedhash;
 	}
 }

@@ -1,5 +1,15 @@
 # PingCoin
 
+## Date 15/02/2018
+
+### Changes:
+1. CLI class is added. Console application development.
+2. Main class is coded so that it'll act like a console application.
+3. Block class is optimized.
+
+### Implementation:
+1. Able to export the project as runnable jar that run as console application. (java -jar "path-to-file" -help/-getblock)
+
 ## Date 12/02/2018
 
 ### Changes:

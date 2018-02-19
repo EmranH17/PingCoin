@@ -57,10 +57,19 @@ public class TestClass {
 			    System.out.println("\n\nPrinting the merkle root of y, g, b, v, o:\nroot : " + merkleTrees.getRoot());
 				    
 		//Transaction Test
-			    System.out.println("\n\nTesting transaction:");
-				testTransaction = new TestTransaction();
-				TestTransaction.testTransaction();
+		    System.out.println("\n\nTesting transaction:");
+			testTransaction = new TestTransaction();
+			TestTransaction.testTransaction();
+			
+		//Address generation test
+			PublicPrivateKeyPair PPP = new PublicPrivateKeyPair();
+			try {
+				PPP.generateAddress();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+	}
 			
 	public static Boolean isChainValid() {
     	Block currentBlock; 

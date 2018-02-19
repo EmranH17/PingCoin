@@ -1,5 +1,16 @@
 # PingCoin
 
+## Date 19/02/2018
+
+### Changes:
+1. Base58 class added. Encode derived hash to final usable address.
+2. Ripemd160 class added. Apply RIPEMD160 hashing algorithm.
+3. Private & Public Key backup module method is implemented in PublicPrivateKeyPair class.
+4. Address generation module is in progress.
+
+### Implementation:
+1. Incomplete address generation testing.
+
 ## Date 15/02/2018
 
 ### Changes:

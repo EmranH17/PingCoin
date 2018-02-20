@@ -1,5 +1,16 @@
 # PingCoin
 
+## Date 20/02/2018
+
+### Changes:
+1. Address generation method added to PublicPrivateKeyPair class
+2. CLI class now parse getnewaddress option to generate a new address
+3. A method byteToString() is added to HashFunctionUtility class to simplify btye conversion.
+
+### Implementation:
+1. Address generation testing
+2. Console application now accept getnewaddress options to generate a new address.
+
 ## Date 19/02/2018
 
 ### Changes:

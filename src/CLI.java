@@ -1,10 +1,12 @@
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import com.google.gson.GsonBuilder;
 
 public class CLI {
@@ -19,6 +21,7 @@ public class CLI {
 		this.args = args;
 		options.addOption("help", false, "Display help");
 		options.addOption("getblock", true, "Print block information");
+		options.addOption("getnewaddress", false, "Generate a new address");
 	}
 	
 	/**
@@ -34,10 +37,23 @@ public class CLI {
 				help();
 			if(cmd.hasOption("getblock"))
 				getblock(cmd);
-		} catch (ParseException e) {
+			if(cmd.hasOption("getnewaddress"))
+				getnewaddress();
+		} catch (ParseException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * getnewaddress() Return generated address derived from public key
+	 * @throws NoSuchAlgorithmException
+	 */
+	private void getnewaddress() throws NoSuchAlgorithmException {
+		Security.addProvider(new BouncyCastleProvider());
+		PublicPrivateKeyPair PPP = new PublicPrivateKeyPair();
+		System.out.println(PPP.generateAddress());
+	}
+
 	
 	/**
 	 * getblock() Return human readable data of the block with given blockheight.
@@ -51,6 +67,7 @@ public class CLI {
 		}
 	}
 
+	
 	/**
 	 * help() return list of command that can be issued
 	 */

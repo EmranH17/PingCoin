@@ -1,6 +1,7 @@
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
@@ -44,164 +45,120 @@ public class PublicPrivateKeyPair {
 		}
 		
 	/**
-	 * Backup PrivateKey and PublicKey into a database file.
+	 * Backup PrivateKey and PublicKey into a database file every time PrivateKey and PublicKey are generated.
 	 * @param privateKey The Private Key
 	 * @param publicKey The Public Key
-	 * @throws Exception Exception thrown
 	 */
-		public void backupWallet(PrivateKey privateKey, PublicKey publicKey) throws Exception {
-			System.out.println("Backup wallet to file...");
+		public void backupWallet(PrivateKey privateKey, PublicKey publicKey) {
+			//System.out.println("Backup wallet to file...");
+			
 			
 			// SQLite connection string
-			String url = "jdbc:sqlite:wallet.db";
+				String url = "jdbc:sqlite:wallet.db";
 	        
+				
 	        // SQL statement for creating a new table
-	        String sql = "CREATE TABLE IF NOT EXISTS Block (\n"
-	                + "	privateKey STRING,\n"
-	                + "	publicKey STRING\n"
-	                + ");";
-	        
-	        try (Connection conn = DriverManager.getConnection(url);
-	                Statement stmt = conn.createStatement()) {
-	            // create a new table
-	            stmt.execute(sql);
-	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
-	        }
-	 
+		        String sql = "CREATE TABLE IF NOT EXISTS Block (\n"
+		                + "	privateKey STRING,\n"
+		                + "	publicKey STRING\n"
+		                + ");";
+		        
+		        try (Connection conn = DriverManager.getConnection(url);
+		                Statement stmt = conn.createStatement()) {
+		            // create a new table
+		            stmt.execute(sql);
+		        } catch (SQLException e) {
+		            System.out.println(e.getMessage());
+		        }
+		        
+		        
 			// SQLite connection string
-	        String url1 = "jdbc:sqlite:wallet.db";
-	        Connection conn = null;
-	        
-	        try {
-	            conn = DriverManager.getConnection(url1);
-	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
-	        }
-	        
-	        String sql1 = "INSERT INTO Block(privateKey,publicKey) VALUES(?,?)";
-	        
-	        try (PreparedStatement pstmt = conn.prepareStatement(sql1)) {
-	            pstmt.setBytes(1, privateKey.getEncoded());
-	            pstmt.setBytes(2, publicKey.getEncoded());
-	            pstmt.executeUpdate();
-	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
-	        }
+		        String url1 = "jdbc:sqlite:wallet.db";
+		        Connection conn = null;
+		        
+		        try {
+		            conn = DriverManager.getConnection(url1);
+		        } catch (SQLException e) {
+		            System.out.println(e.getMessage());
+		        }
+		        
+		        String sql1 = "INSERT INTO Block(privateKey,publicKey) VALUES(?,?)";
+		        
+		        try (PreparedStatement pstmt = conn.prepareStatement(sql1)) {
+		            pstmt.setBytes(1, privateKey.getEncoded());
+		            pstmt.setBytes(2, publicKey.getEncoded());
+		            pstmt.executeUpdate();
+		        } catch (SQLException e) {
+		            System.out.println(e.getMessage());
+		        }
 		}
 		
 		
 	/**
-	 * Generate a Address used to receive coin derived from public key.
-	 * Not Complete!
-	 * @throws Exception Instance of SHA-256 cannot be retrieved!
+	 * Generate an Address used to receive coin derived from public key.
+	 * @throws NoSuchAlgorithmException Instance of SHA-256 algorithm cannot be retrieved!
 	 */
-		public void generateAddress() throws Exception {
+		public String generateAddress() throws NoSuchAlgorithmException {
 				int i = 0;
 				
-			//Print PingCoin in byte
+				
+			//Convert String "PingCoin" into byte counterpart
 				i = 0;
 				byte[] pingCoinInByte = new byte["PingCoin".getBytes().length];
 				for(byte bb : "PingCoin".getBytes())
 					pingCoinInByte[i++] = bb;
 				
-				StringBuffer hexString = new StringBuffer();
-				for (i = 0; i < pingCoinInByte.length; i++) {
-					String hex = Integer.toHexString(0xff & pingCoinInByte[i]);
-					if(hex.length() == 1) hexString.append('0');
-					hexString.append(hex);
-				}
-				
-				System.out.println("Step 1: Concatenate Byte of 'PingCoin' with public key\nPingCoin in bytes: " + hexString);
+				//System.out.println("Step 1: Concatenate Byte of 'PingCoin' with public key\nPingCoin in bytes: " + HashFunctionUtility.byteToString(pingCoinInByte));
 			
 				
-			//Print public key
+			//Get public key
 				byte[] publicKey1 = publicKey.getEncoded();
 				
-				hexString.delete(0, hexString.length());
-				for (i = 0; i < publicKey1.length; i++) {
-					String hex = Integer.toHexString(0xff & publicKey1[i]);
-					if(hex.length() == 1) hexString.append('0');
-					hexString.append(hex);
-				}
+				//System.out.println("Public key: " + HashFunctionUtility.byteToString(publicKey1));
 				
-				System.out.println("Public key: " + hexString);
 				
-			//Print PingCoin + Public Key
+			//Concatenate PingCoin + Public Key
 				byte[] pingCoinWithPublicKey = new byte[pingCoinInByte.length + publicKey1.length];
 				System.arraycopy(pingCoinInByte, 0, pingCoinWithPublicKey, 0, pingCoinInByte.length);
 				System.arraycopy(publicKey1, 0, pingCoinWithPublicKey, pingCoinInByte.length, publicKey1.length);
-	
-				hexString.delete(0, hexString.length());
-				for (i = 0; i < pingCoinWithPublicKey.length; i++) {
-					String hex = Integer.toHexString(0xff & pingCoinWithPublicKey[i]);
-					if(hex.length() == 1) hexString.append('0');
-					hexString.append(hex);
-				}
 				
-				System.out.println("PingCoin + Public Key: " + hexString);
+				//System.out.println("PingCoin + Public Key: " + HashFunctionUtility.byteToString(pingCoinWithPublicKey));
 			
 			
-			//Print SHA256 of PingCoin + Public key
+			//Apply SHA256 hash algorithm to concatenated PingCoin + Public key bytes
 				Security.addProvider(new BouncyCastleProvider());
 				MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-	
+				
 				byte[] pingCoinWithPublicKeySHA256 = messageDigest.digest(pingCoinWithPublicKey);
 				
-				hexString.delete(0, hexString.length());
-				for (i = 0; i < pingCoinWithPublicKeySHA256.length; i++) {
-					String hex = Integer.toHexString(0xff & pingCoinWithPublicKeySHA256[i]);
-					if(hex.length() == 1) hexString.append('0');
-					hexString.append(hex);
-				}
-				
-				System.out.println("SHA-256 of PingCoin + Public key: " + hexString);
+				//System.out.println("SHA-256 of PingCoin + Public key: " + HashFunctionUtility.byteToString(pingCoinWithPublicKeySHA256));
 
-				
-			//Concatenate bytes of PingCoin to SHA256 of publicKey
-				
 			
-			//Apply RIPEMD-160 hashing algorithm to SHA256 hashed PingCoin + public key
-				byte[] RIPEMD160Hash = Ripemd160.getHash(pingCoinWithPublicKey);
+			//Apply RIPEMD-160 hashing algorithm to SHA256 hashed PingCoin + public key & add byte version 0x01 for testnet to the front of the RIPEMD160 Hash
+				byte[] RIPEMD160Hash = Ripemd160.getHash(pingCoinWithPublicKeySHA256);
+				byte[] RIPEMD160HashWithByteVersion = new byte[RIPEMD160Hash.length + 1];
+				System.arraycopy(new byte[]{0}, 0, RIPEMD160HashWithByteVersion, 0, 1);
+				System.arraycopy(RIPEMD160Hash, 0, RIPEMD160HashWithByteVersion, 1, RIPEMD160Hash.length);
 				
-				hexString.delete(0, hexString.length());
-				for (i = 0; i < RIPEMD160Hash.length; i++) {
-					String hex = Integer.toHexString(0xff & RIPEMD160Hash[i]);
-					if(hex.length() == 1) hexString.append('0');
-					hexString.append(hex);
-				}
-				
-				System.out.println("After RIPEMD-160: " + hexString);
+				//System.out.println("After RIPEMD-160: " + HashFunctionUtility.byteToString(RIPEMD160HashWithByteVersion));
+				//System.out.println("RIPEMD-160 with byte version: " + HashFunctionUtility.byteToString(RIPEMD160HashWithByteVersion));
 			
-			//Apply X2 SHA256 hashing algorithm to version byte + RIPEMD-160 hashed SHA256 hashed PingCoin + public key
-				byte[] SHA256Hash_of_RIPEMD160Hash = Ripemd160.getHash(RIPEMD160Hash);
+				
+			//Apply two times SHA256 hashing algorithm to version byte + RIPEMD-160 hashed SHA256 hashed PingCoin + public key
+				byte[] SHA256Hash_of_RIPEMD160Hash = Ripemd160.getHash(RIPEMD160HashWithByteVersion);
 				byte[] _2SHA256Hash_of_RIPEMD160Hash = Ripemd160.getHash(SHA256Hash_of_RIPEMD160Hash);
 				
-				hexString.delete(0, hexString.length());
-				for (i = 0; i < _2SHA256Hash_of_RIPEMD160Hash.length; i++) {
-					String hex = Integer.toHexString(0xff & _2SHA256Hash_of_RIPEMD160Hash[i]);
-					if(hex.length() == 1) hexString.append('0');
-					hexString.append(hex);
-				}
+				//System.out.println("X2 SHA of RIPEMD160: " + HashFunctionUtility.byteToString(_2SHA256Hash_of_RIPEMD160Hash));
 				
-				System.out.println("2SHA of RIPEMD160: " + hexString);
+				byte[] Address = new byte[RIPEMD160HashWithByteVersion.length + 4];
+				System.arraycopy(RIPEMD160HashWithByteVersion, 0, Address, 0, RIPEMD160HashWithByteVersion.length);
+				System.arraycopy(_2SHA256Hash_of_RIPEMD160Hash, 0, Address, RIPEMD160HashWithByteVersion.length, 4);
 				
-				
-				byte[] Address = new byte[RIPEMD160Hash.length + 4];
-				System.arraycopy(RIPEMD160Hash, 0, Address, 0, RIPEMD160Hash.length);
-				System.arraycopy(_2SHA256Hash_of_RIPEMD160Hash, 0, Address, RIPEMD160Hash.length, 4);
-				
-				hexString.delete(0, hexString.length());
-				for (i = 0; i < Address.length; i++) {
-					String hex = Integer.toHexString(0xff & Address[i]);
-					if(hex.length() == 1) hexString.append('0');
-					hexString.append(hex);
-				}
-				
-				System.out.println("Before Base58: " + hexString);
+				//System.out.println("Before Base58: " + HashFunctionUtility.byteToString(Address));
 			
-			String Base58Address = Base58.encode(Address);
+				String Base58Address = Base58.encode(Address);
 			
-			System.out.println("After Base58: " + Base58Address);
+				//System.out.println("Address Generated!: " + Base58Address);
+				return Base58Address;
 		}
 }

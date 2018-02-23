@@ -1,5 +1,15 @@
 # PingCoin
 
+## Date 23/02/2018
+
+### Changes:
+1. Base58 class character set 1 and P is swapped for address generation always start from P for PingCoin.
+2. HashFunctionUtility class - Unused library import removed.
+3. PublicPrivateKeyPair class, generateaddress method - 0x01 byte instead of 0x00 for testnet
+
+### Implementation:
+No implementation
+
 ## Date 20/02/2018
 
 ### Changes:
@@ -85,4 +95,4 @@
 1. Added a class to generate public and private key.
   
 ### Implementation:
-1. The is no implementation because to implament that we need to create a valid transaction first.
+1. The is no implementation because to implement that we need to create a valid transaction first.

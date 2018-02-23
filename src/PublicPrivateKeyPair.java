@@ -137,7 +137,7 @@ public class PublicPrivateKeyPair {
 			//Apply RIPEMD-160 hashing algorithm to SHA256 hashed PingCoin + public key & add byte version 0x01 for testnet to the front of the RIPEMD160 Hash
 				byte[] RIPEMD160Hash = Ripemd160.getHash(pingCoinWithPublicKeySHA256);
 				byte[] RIPEMD160HashWithByteVersion = new byte[RIPEMD160Hash.length + 1];
-				System.arraycopy(new byte[]{0}, 0, RIPEMD160HashWithByteVersion, 0, 1);
+				System.arraycopy(new byte[]{1}, 0, RIPEMD160HashWithByteVersion, 0, 1);
 				System.arraycopy(RIPEMD160Hash, 0, RIPEMD160HashWithByteVersion, 1, RIPEMD160Hash.length);
 				
 				//System.out.println("After RIPEMD-160: " + HashFunctionUtility.byteToString(RIPEMD160HashWithByteVersion));

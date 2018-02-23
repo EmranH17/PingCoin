@@ -16,7 +16,7 @@
 
 public class Base58 {
 	
-	private static final char[] ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+	private static final char[] ALPHABET = "P23456789ABCDEFGHJKLMN1QRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 			.toCharArray();
 	private static final int BASE_58 = ALPHABET.length;
 	private static final int BASE_256 = 256;

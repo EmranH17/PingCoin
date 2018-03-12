@@ -38,47 +38,47 @@ public class Block implements java.io.Serializable{
 	}
 	
 	//serialization
-		public void serialize(String data, String previousHash){
-			Block block = new Block(data,previousHash);
-			block.timeStamp = new Date().getTime();
-			block.blockHeight = Blockchain.blockchain.size();
-			block.previousHash = block.previousHash;
-			block.data = block.data;
-			block.blockHash = HashFunctionUtility.applySha256(Long.toString(block.timeStamp) + block.blockHeight + block.previousHash + block.data);
-			try {
-				FileOutputStream fileout = new FileOutputStream("serializedBlock.ser");
-				ObjectOutputStream out = new ObjectOutputStream(fileout);
-				out.writeObject(block);
-				out.close();
-				fileout.close();
-				System.out.println("\n\nserializedBlock.ser generated");
-			}catch(IOException ex) {
-				ex.printStackTrace();
-			}
+	public void serialize(String data, String previousHash){
+		Block block = new Block(data,previousHash);
+		block.timeStamp = new Date().getTime();
+		block.blockHeight = Blockchain.blockchain.size();
+		block.previousHash = block.previousHash;
+		block.data = block.data;
+		block.blockHash = HashFunctionUtility.applySha256(Long.toString(block.timeStamp) + block.blockHeight + block.previousHash + block.data);
+		try {
+			FileOutputStream fileout = new FileOutputStream("serializedBlock.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileout);
+			out.writeObject(block);
+			out.close();
+			fileout.close();
+			System.out.println("\n\nserializedBlock.ser generated");
+		}catch(IOException ex) {
+			ex.printStackTrace();
 		}
+	}
 		
 	//deserialization
-		public void deserialize() {
-			Block dblock = null;
-			try {
-				FileInputStream fileIn = new FileInputStream("serializedBlock.ser");
-				ObjectInputStream in = new ObjectInputStream(fileIn);
-				dblock = (Block) in.readObject();
-				in.close();
-				fileIn.close();
-			}catch(IOException ex) {
-				ex.printStackTrace();
-				return;
-			}catch(ClassNotFoundException ex) {
-				System.out.println("\n\nBlock class not found");
-				ex.printStackTrace();
-				return;
-			}
-			System.out.println("\nDeserializing Block:");
-			System.out.println("\nTime Stamp: "+dblock.timeStamp);
-			System.out.println("Block Height: "+dblock.blockHeight);
-			System.out.println("Previous Hash: "+dblock.previousHash);
-			System.out.println("Data: "+dblock.data);
-			System.out.println("Block Hash: "+dblock.blockHash);
+	public void deserialize() {
+		Block dblock = null;
+		try {
+			FileInputStream fileIn = new FileInputStream("serializedBlock.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			dblock = (Block) in.readObject();
+			in.close();
+			fileIn.close();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+			return;
+		}catch(ClassNotFoundException ex) {
+			System.out.println("\n\nBlock class not found");
+			ex.printStackTrace();
+			return;
 		}
+		System.out.println("\nDeserializing Block:");
+		System.out.println("\nTime Stamp: "+dblock.timeStamp);
+		System.out.println("Block Height: "+dblock.blockHeight);
+		System.out.println("Previous Hash: "+dblock.previousHash);
+		System.out.println("Data: "+dblock.data);
+		System.out.println("Block Hash: "+dblock.blockHash);
+	}
 }

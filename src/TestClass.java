@@ -65,6 +65,11 @@ public class TestClass {
 		//Address generation test
 			PublicPrivateKeyPair PPP = new PublicPrivateKeyPair();
 			System.out.println("\n\nAddress Generation Test:\nAddress: " + PPP.generateAddress());
+			
+		//serialization test
+			Block block = new Block(null, null);
+			block.serialize("Test","0");
+			block.deserialize();
 	}
 			
 	public static Boolean isChainValid() {

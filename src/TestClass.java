@@ -68,7 +68,7 @@ public class TestClass {
 			
 		//serialization test
 			Block block = new Block(null, null);
-			block.serialize("Test","0");
+			block.serialize();
 			block.deserialize();
 	}
 			

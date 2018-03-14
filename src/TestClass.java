@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class TestClass {
 	public static PublicPrivateKeyPair walletB;
 	public static TestTransaction testTransaction;
 
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	public static void main(String[] args) throws NoSuchAlgorithmException, NumberFormatException, IOException, InterruptedException {
 		//add our blocks to the block chain ArrayList:
 			blockchain.add( new Block("Genesis", "0") );
 						
@@ -65,6 +66,9 @@ public class TestClass {
 		//Address generation test
 			PublicPrivateKeyPair PPP = new PublicPrivateKeyPair();
 			System.out.println("\n\nAddress Generation Test:\nAddress: " + PPP.generateAddress());
+			
+		//Peer testing
+			PeerNode pn = new PeerNode("127.0.0.1","50696");
 	}
 			
 	public static Boolean isChainValid() {

@@ -108,7 +108,7 @@ public class PublicPrivateKeyPair {
 				for(byte bb : "PingCoin".getBytes())
 					pingCoinInByte[i++] = bb;
 				
-				//System.out.println("Step 1: Concatenate Byte of 'PingCoin' with public key\nPingCoin in bytes: " + HashFunctionUtility.byteToString(pingCoinInByte));
+				System.out.println("Step 1: Concatenate Byte of 'PingCoin' with public key\nPingCoin in bytes: " + HashFunctionUtility.byteToString(pingCoinInByte));
 			
 				
 			//Get public key

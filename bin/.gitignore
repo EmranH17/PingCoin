@@ -1,12 +1,16 @@
+/.gitignore
 /Base58.class
 /Block.class
 /Blockchain.class
 /CLI.class
+/Client.class
 /Database.class
 /HashFunctionUtility.class
 /Main.class
+/PeerNode.class
 /PublicPrivateKeyPair.class
 /Ripemd160.class
+/ServerThread.class
 /TestClass.class
 /TestTransaction.class
 /Transaction.class
@@ -14,3 +18,4 @@
 /TransactionOut.class
 /blockMasterElection.class
 /markleTree.class
+/Server.class

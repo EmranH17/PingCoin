@@ -67,8 +67,15 @@ public class TestClass {
 			PublicPrivateKeyPair PPP = new PublicPrivateKeyPair();
 			System.out.println("\n\nAddress Generation Test:\nAddress: " + PPP.generateAddress());
 			
+
 		//Peer testing
 			PeerNode pn = new PeerNode("127.0.0.1","50696");
+
+		//serialization test
+			Block block = new Block(null, null);
+			block.serialize();
+			block.deserialize();
+
 	}
 			
 	public static Boolean isChainValid() {

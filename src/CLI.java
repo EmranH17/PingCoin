@@ -22,6 +22,13 @@ public class CLI {
 		options.addOption("help", false, "Display help");
 		options.addOption("getblock", true, "Print block information");
 		options.addOption("getnewaddress", false, "Generate a new address");
+		options.addOption("displaymypublickey", true, "Display my public key");
+		options.addOption("displayprvtkey",true,"Display my private key");
+		options.addOption("displaynumoftxn", true, "Display number of transaction");
+		options.addOption("txninlist",true,"Display transaction in list");
+		options.addOption("txnoutlist",true,"Display transaction out list");
+		options.addOption("displaytxn",true,"Show all transaction");
+		options.addOption("maketransfer",true,"Transfer Coin");
 	}
 	
 	/**
@@ -39,11 +46,76 @@ public class CLI {
 				getblock(cmd);
 			if(cmd.hasOption("getnewaddress"))
 				getnewaddress();
+			if(cmd.hasOption("displaymypublickey"))
+				displaymyaddress();
+			if(cmd.hasOption("displayprvtkey"))
+				displayprvtkey();
+			if(cmd.hasOption("displaynumoftxn"))
+				displaynumoftxn();
+			if(cmd.hasOption("txninlist"))
+				txninlist();
+			if(cmd.hasOption("txnoutlist"))
+				txnoutlist();
+			if(cmd.hasOption("displaytxn"))
+				displaytxn();
+			if(cmd.hasOption("maketransfer"))
+				maketransfer();
+				
 		} catch (ParseException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * transfer pingcoin to another address
+	 */
+	private void maketransfer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * display all transaction
+	 */
+	private void displaytxn() {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * display the transaction out list
+	 */
+	private void txnoutlist() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * display the transaction in list
+	 */
+	private void txninlist() {
 	
+	}
+
+	/**
+	 * display number of transaction made
+	 */
+	private void displaynumoftxn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * display the user's private key
+	 */
+	private void displayprvtkey() {
+	}
+
+	/**
+	 * display the current address of the machine 
+	 */
+	private void displaymyaddress() {
+		PublicPrivateKeyPair ppkp = new PublicPrivateKeyPair();
+		System.out.println(ppkp.publicKey);
+	}
 	/**
 	 * getnewaddress() Return generated address derived from public key
 	 * @throws NoSuchAlgorithmException
@@ -66,7 +138,6 @@ public class CLI {
 				System.out.println(block);
 		}
 	}
-
 	
 	/**
 	 * help() return list of command that can be issued

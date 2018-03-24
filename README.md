@@ -1,5 +1,16 @@
 # PingCoin
 
+## Date 24/03/2018
+
+### Changes:
+1. Server class added. Server class will accept 2 argument, port number and Block and start ServerThread.
+2. ServerThread class added. ServerThread class accept Socket connection and Block from Server class and sent it to client.
+3. Client class added. Client server accept a hostname/address and a port number to listen to any Block sent by the ServerThread and returns Block.
+
+### Implementation:
+1. TestServer class test basic functionality of Server class.
+2. TestClient class test basic functionality of Client class.
+
 ## Date 23/02/2018
 
 ### Changes:

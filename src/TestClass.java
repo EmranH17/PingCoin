@@ -68,7 +68,7 @@ public class TestClass {
 			System.out.println("\n\nAddress Generation Test:\nAddress: " + PPP.generateAddress());
 			
 		//Peer testing
-			PeerNode pn = new PeerNode("127.0.0.1","50696");
+			//PeerNode pn = new PeerNode("127.0.0.1","50696");
 	}
 			
 	public static Boolean isChainValid() {

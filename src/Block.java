@@ -1,7 +1,9 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class Block {
+public class Block implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	public String blockHash;
 	public long timeStamp;
 	public int blockHeight;
@@ -21,14 +23,6 @@ public class Block {
 	public long getBlockHeight() {
 		return blockHeight;
 	}
-	
-	//Return the raw String representation of the block, useful when saving the block or sending it to a peer. 
-	public String getRawBlock()
-    {
-        String rawBlock = ""; 
-        rawBlock = timeStamp + "," + blockHeight + "," + previousHash + "," + data;
-        return rawBlock; 
-    }
 	
 	public String calculateHash() {
 		String calculatedhash = HashFunctionUtility.applySha256(Long.toString(timeStamp) + blockHeight + previousHash + data);

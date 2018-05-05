@@ -1,10 +1,9 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Simple Blockchain class template.
@@ -13,15 +12,15 @@ import java.util.ArrayList;
  * More TODO methods...
  */
 public class Blockchain {
-	static ArrayList<Block> blockchain = new ArrayList<Block>();
+	static LinkedList<Block> blockchain = new LinkedList<Block>();
 
 	//Empty Constructor
 	public Blockchain(){
     }
 	
-	/**
+/*	*//**
      * Writes a block to the blockchain database file
-     */
+     *//*
 	public void writeBlockToDatabaseFile(Block block) {
 		// SQLite connection string
         String url = "jdbc:sqlite:blockchainDb.db";
@@ -45,7 +44,7 @@ public class Blockchain {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-	}
+	}*/
 	
 	/**
      * Read blocks from the blockchain database file
